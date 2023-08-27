@@ -8,6 +8,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import dev.spozap.evfishingcore.EvFishingCore;
 import dev.spozap.evfishingcore.models.FishingRegion;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -28,9 +29,8 @@ public class FishingManager {
     public FishingManager(EvFishingCore plugin) {
         this.plugin = plugin;
         this.regionContainer = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        this.fishingRegions = new HashMap<>();
+        this.fishingRegions = plugin.getConfigManager().loadRegions();
 
-        fishingRegions.put("fishtest", new FishingRegion());
     }
 
     public void onFish(PlayerFishEvent event) {
@@ -51,10 +51,15 @@ public class FishingManager {
             if (!currentRegion.getFishes().isEmpty()) {
                 ItemStack fishItem = new ItemStack(Material.PUFFERFISH);
                 ItemMeta itemMeta = fishItem.getItemMeta();
-                itemMeta.setDisplayName(currentRegion.getFishes().get(0).getName());
-                fishItem.setItemMeta(itemMeta);
 
+                String name = currentRegion.getFishes().get(0).getName();
+                itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+
+                fishItem.setItemMeta(itemMeta);
                 caughtItem.setItemStack(fishItem);
+
+                p.sendMessage("Has pescado el pez " + ChatColor.translateAlternateColorCodes('&', name + "&f")
+                + " en la región de pesca " + currentRegion.getId());
             }
 
         } else {

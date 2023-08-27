@@ -5,6 +5,10 @@ public class Fish {
     private String name;
     private int maxHeight, maxLength;
 
+    public Fish() {
+
+    }
+
     public Fish(String name) {
         this.name = name;
     }
@@ -13,4 +17,7 @@ public class Fish {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

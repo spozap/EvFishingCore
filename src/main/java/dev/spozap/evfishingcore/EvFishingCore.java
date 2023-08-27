@@ -30,8 +30,8 @@ public final class EvFishingCore extends JavaPlugin {
     }
 
     public void loadManagers() {
-        fishingManager = new FishingManager(plugin);
         configManager = new ConfigManager(plugin);
+        fishingManager = new FishingManager(plugin);
     }
 
     public FishingManager getFishingManager() {
