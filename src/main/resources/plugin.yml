@@ -1,0 +1,4 @@
+name: EvFishingCore
+version: '${project.version}'
+main: dev.spozap.evfishingcore.EvFishingCore
+api-version: '1.19'
