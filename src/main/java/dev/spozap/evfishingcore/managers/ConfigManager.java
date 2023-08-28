@@ -1,8 +1,10 @@
 package dev.spozap.evfishingcore.managers;
 
+import com.google.common.base.Enums;
 import dev.spozap.evfishingcore.EvFishingCore;
 import dev.spozap.evfishingcore.config.ConfigurationFile;
 import dev.spozap.evfishingcore.models.Fish;
+import dev.spozap.evfishingcore.models.FishTiers;
 import dev.spozap.evfishingcore.models.FishingRegion;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -42,6 +44,14 @@ public class ConfigManager {
 
                 if (fishSection.contains("display-name")) {
                     fish.setName(fishSection.getString("display-name"));
+                }
+
+                if (fishSection.contains("tier")) {
+                    Optional<FishTiers> tierConfig = Enums.getIfPresent(FishTiers.class, fishSection.getString("tier")).toJavaUtil();
+
+                    FishTiers tier = tierConfig.orElse(FishTiers.COMMON);
+                    fish.setTier(tier);
+
                 }
 
                 fishes.put(key, fish);

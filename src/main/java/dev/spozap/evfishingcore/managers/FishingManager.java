@@ -58,8 +58,10 @@ public class FishingManager {
                 fishItem.setItemMeta(itemMeta);
                 caughtItem.setItemStack(fishItem);
 
+
                 p.sendMessage("Has pescado el pez " + ChatColor.translateAlternateColorCodes('&', name + "&f")
-                + " en la región de pesca " + currentRegion.getId());
+                + " en la región de pesca " + currentRegion.getId() + " con tier: "
+                + ChatColor.translateAlternateColorCodes('&', currentRegion.getFishes().get(0).getTier().getLabel()));
             }
 
         } else {
