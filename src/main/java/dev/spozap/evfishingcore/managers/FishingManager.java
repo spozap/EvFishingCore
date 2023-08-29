@@ -7,7 +7,10 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import dev.spozap.evfishingcore.EvFishingCore;
+import dev.spozap.evfishingcore.models.FishingLootTable;
 import dev.spozap.evfishingcore.models.FishingRegion;
+import dev.spozap.evfishingcore.models.LootItem;
+import dev.spozap.evfishingcore.models.LootTier;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -19,17 +22,24 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 public class FishingManager {
 
     private final EvFishingCore plugin;
     private RegionContainer regionContainer;
     private Map<String, FishingRegion> fishingRegions;
+    private Map<LootTier, Double> lootProbabilities;
 
     public FishingManager(EvFishingCore plugin) {
         this.plugin = plugin;
         this.regionContainer = WorldGuard.getInstance().getPlatform().getRegionContainer();
         this.fishingRegions = plugin.getConfigManager().loadRegions();
+
+        lootProbabilities = new HashMap<>();
+        lootProbabilities.put(LootTier.COMMON, 0.8);
+        lootProbabilities.put(LootTier.EPIC, 0.15);
+        lootProbabilities.put(LootTier.LEGENDARY, 0.05);
 
     }
 
@@ -48,11 +58,17 @@ public class FishingManager {
             FishingRegion currentRegion = fishingRegion.get();
             Item caughtItem = (Item) event.getCaught();
 
-            if (!currentRegion.getFishes().isEmpty()) {
+            FishingLootTable lootTable = currentRegion.getLootTable();
+            LootTier rewardTier = getLootItemTier();
+
+            if (lootTable.hasLoot(rewardTier)) {
+
+                LootItem reward = lootTable.getLootByTier(rewardTier);
+
                 ItemStack fishItem = new ItemStack(Material.PUFFERFISH);
                 ItemMeta itemMeta = fishItem.getItemMeta();
 
-                String name = currentRegion.getFishes().get(0).getName();
+                String name = reward.getName();
                 itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
 
                 fishItem.setItemMeta(itemMeta);
@@ -61,7 +77,7 @@ public class FishingManager {
 
                 p.sendMessage("Has pescado el pez " + ChatColor.translateAlternateColorCodes('&', name + "&f")
                 + " en la región de pesca " + currentRegion.getId() + " con tier: "
-                + ChatColor.translateAlternateColorCodes('&', currentRegion.getFishes().get(0).getTier().getLabel()));
+                + ChatColor.translateAlternateColorCodes('&', reward.getTier().getLabel()));
             }
 
         } else {
@@ -78,6 +94,25 @@ public class FishingManager {
             }
         }
         return Optional.empty();
+    }
+
+    public LootTier getLootItemTier() {
+        double random = new Random().nextDouble();
+        LootTier tier = LootTier.COMMON;
+
+        System.out.println("El valor del random: " + random);
+
+        for(Map.Entry<LootTier, Double> entry : lootProbabilities.entrySet() ) {
+            System.out.println("Valor tier " + entry.getKey() + " valor: " + entry.getValue());
+            if (random <= entry.getValue()) {
+                System.out.println("entra aqui");
+                tier = entry.getKey();
+                break;
+            }
+        }
+
+        return tier;
+
     }
 }
 

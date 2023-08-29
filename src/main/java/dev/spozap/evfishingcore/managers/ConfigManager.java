@@ -3,9 +3,7 @@ package dev.spozap.evfishingcore.managers;
 import com.google.common.base.Enums;
 import dev.spozap.evfishingcore.EvFishingCore;
 import dev.spozap.evfishingcore.config.ConfigurationFile;
-import dev.spozap.evfishingcore.models.Fish;
-import dev.spozap.evfishingcore.models.FishTiers;
-import dev.spozap.evfishingcore.models.FishingRegion;
+import dev.spozap.evfishingcore.models.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -27,8 +25,8 @@ public class ConfigManager {
         regionsConfigFile.setup();
     }
 
-    public Map<String, Fish> loadFishes() {
-        Map<String, Fish> fishes = new HashMap<>();
+    public Map<String, LootItem> loadFishes() {
+        Map<String, LootItem> fishes = new HashMap<>();
         FileConfiguration config = fishesConfigFile.get();
 
         if (config.getConfigurationSection("fishes") != null) {
@@ -47,9 +45,9 @@ public class ConfigManager {
                 }
 
                 if (fishSection.contains("tier")) {
-                    Optional<FishTiers> tierConfig = Enums.getIfPresent(FishTiers.class, fishSection.getString("tier")).toJavaUtil();
+                    Optional<LootTier> tierConfig = Enums.getIfPresent(LootTier.class, fishSection.getString("tier")).toJavaUtil();
 
-                    FishTiers tier = tierConfig.orElse(FishTiers.COMMON);
+                    LootTier tier = tierConfig.orElse(LootTier.COMMON);
                     fish.setTier(tier);
 
                 }
@@ -68,7 +66,7 @@ public class ConfigManager {
         FileConfiguration config = regionsConfigFile.get();
 
         Map<String, FishingRegion> regions = new HashMap<>();
-        Map<String, Fish> fishes = loadFishes();
+        Map<String, LootItem> fishes = loadFishes();
 
         if (config.getConfigurationSection("regions") != null) {
 
@@ -78,6 +76,7 @@ public class ConfigManager {
             for(String key : regionKeys) {
 
                 FishingRegion region = new FishingRegion();
+                FishingLootTable lootTable = new FishingLootTable();
                 region.setId(key);
 
                 ConfigurationSection regionSection = regionsSection.getConfigurationSection(key);
@@ -86,13 +85,12 @@ public class ConfigManager {
 
                 for (String fishInRegion : regionSection.getStringList("fishes")) {
 
-                    Fish fish = fishes.get(fishInRegion);
-                    if (fish != null) {
-                        fishesInRegion.add(fishes.get(fishInRegion));
-                    }
+                    LootItem fish = (Fish) fishes.get(fishInRegion);
+                    lootTable.addLoot(fish);
 
                 }
 
+                region.setLootTable(lootTable);
                 region.setFishes(fishesInRegion);
                 regions.put(key, region); // TODO: Change this to put the region name
 

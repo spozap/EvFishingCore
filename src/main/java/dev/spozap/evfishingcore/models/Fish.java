@@ -1,32 +1,25 @@
 package dev.spozap.evfishingcore.models;
 
-public class Fish {
+public class Fish extends LootItem {
 
     private String name;
     private int maxHeight, maxLength;
-    private FishTiers tier;
+    private LootTier tier;
 
     public Fish() {
-
+        super();
     }
 
-    public Fish(String name) {
-        this.name = name;
+    public int getMaxHeight() {
+        return maxHeight;
     }
-
-    public String getName() {
-        return name;
+    public void setMaxHeight(int maxHeight) {
+        this.maxHeight = maxHeight;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public int getMaxLength() {
+        return maxLength;
     }
-
-    public void setTier(FishTiers tier) {
-        this.tier = tier;
-    }
-
-    public FishTiers getTier() {
-        return tier;
+    public void setMaxLength(int maxLength) {
+        this.maxLength = maxLength;
     }
 }

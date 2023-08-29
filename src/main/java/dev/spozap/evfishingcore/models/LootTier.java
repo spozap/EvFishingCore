@@ -1,6 +1,6 @@
 package dev.spozap.evfishingcore.models;
 
-public enum FishTiers {
+public enum LootTier {
 
     COMMON("&7&lCOMUN"),
     EPIC("&4&lEPICO"),
@@ -8,7 +8,7 @@ public enum FishTiers {
 
     private final String label;
 
-    FishTiers(final String label) {
+    LootTier(final String label) {
         this.label = label;
     }
 
