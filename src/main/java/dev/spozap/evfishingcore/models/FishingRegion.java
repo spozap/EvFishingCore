@@ -4,20 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FishingRegion {
-    private List<Fish> fishes;
     private FishingLootTable lootTable;
     private String id, displayName;
 
     public FishingRegion() {
-        this.fishes = new ArrayList<>();
-    }
-    public List<Fish> getFishes() {
-        return fishes;
+
     }
 
-    public void setFishes(List<Fish> fishes) {
-        this.fishes = fishes;
-    }
     public String getId() {
         return id;
     }

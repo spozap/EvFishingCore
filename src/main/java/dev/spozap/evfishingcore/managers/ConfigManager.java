@@ -81,7 +81,6 @@ public class ConfigManager {
 
                 ConfigurationSection regionSection = regionsSection.getConfigurationSection(key);
 
-                List<Fish> fishesInRegion = new ArrayList<>();
 
                 for (String fishInRegion : regionSection.getStringList("fishes")) {
 
@@ -91,8 +90,7 @@ public class ConfigManager {
                 }
 
                 region.setLootTable(lootTable);
-                region.setFishes(fishesInRegion);
-                regions.put(key, region); // TODO: Change this to put the region name
+                regions.put(key, region);
 
             }
 

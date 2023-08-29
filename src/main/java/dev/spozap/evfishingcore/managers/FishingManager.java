@@ -100,12 +100,8 @@ public class FishingManager {
         double random = new Random().nextDouble();
         LootTier tier = LootTier.COMMON;
 
-        System.out.println("El valor del random: " + random);
-
         for(Map.Entry<LootTier, Double> entry : lootProbabilities.entrySet() ) {
-            System.out.println("Valor tier " + entry.getKey() + " valor: " + entry.getValue());
             if (random <= entry.getValue()) {
-                System.out.println("entra aqui");
                 tier = entry.getKey();
                 break;
             }
