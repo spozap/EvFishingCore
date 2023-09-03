@@ -3,5 +3,4 @@ version: '${project.version}'
 main: dev.spozap.evfishingcore.EvFishingCore
 api-version: '1.19'
 author: spozap
-depend:
-  - WorldGuard
+depend: [WorldGuard]

@@ -2,7 +2,6 @@ package dev.spozap.evfishingcore.models;
 
 public class Fish extends LootItem {
 
-    private String name;
     private int maxHeight, maxLength;
     private LootTier tier;
 

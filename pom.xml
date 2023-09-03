@@ -43,6 +43,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>shade</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <minimizeJar>true</minimizeJar>
+                    <relocations>
+                        <relocation>
+                            <pattern>dev.jorel.commandapi</pattern>
+                            <shadedPattern>dev.spozap.commandapi</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -80,5 +103,10 @@
             <version>7.0.8</version>
             <scope>provided</scope>
         </dependency>
+            <dependency>
+                <groupId>dev.jorel</groupId>
+                <artifactId>commandapi-bukkit-shade</artifactId>
+                <version>9.0.3</version>
+            </dependency>
     </dependencies>
 </project>

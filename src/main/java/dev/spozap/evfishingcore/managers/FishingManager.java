@@ -1,17 +1,9 @@
 package dev.spozap.evfishingcore.managers;
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.util.Location;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.sk89q.worldguard.protection.regions.RegionContainer;
 import dev.spozap.evfishingcore.EvFishingCore;
-import dev.spozap.evfishingcore.models.FishingLootTable;
-import dev.spozap.evfishingcore.models.FishingRegion;
-import dev.spozap.evfishingcore.models.LootItem;
-import dev.spozap.evfishingcore.models.LootTier;
+import dev.spozap.evfishingcore.models.*;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -22,44 +14,33 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 public class FishingManager {
 
     private final EvFishingCore plugin;
-    private RegionContainer regionContainer;
-    private Map<String, FishingRegion> fishingRegions;
-    private Map<LootTier, Double> lootProbabilities;
+    private FishingRegionManager fishingRegionManager;
+    private LootManager lootManager;
 
     public FishingManager(EvFishingCore plugin) {
         this.plugin = plugin;
-        this.regionContainer = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        this.fishingRegions = plugin.getConfigManager().loadRegions();
-
-        lootProbabilities = new HashMap<>();
-        lootProbabilities.put(LootTier.COMMON, 0.8);
-        lootProbabilities.put(LootTier.EPIC, 0.15);
-        lootProbabilities.put(LootTier.LEGENDARY, 0.05);
+        this.fishingRegionManager = plugin.getFishingRegionManager();
+        this.lootManager = plugin.getLootManager();
 
     }
 
     public void onFish(PlayerFishEvent event) {
 
         Player p = event.getPlayer();
-        org.bukkit.Location hookLocation = event.getHook().getLocation();
+        Location hookLocation = event.getHook().getLocation();
 
-        Location location = BukkitAdapter.adapt(hookLocation);
-
-        ApplicableRegionSet regionSet = regionContainer.createQuery().getApplicableRegions(location);
-
-        Optional<FishingRegion> fishingRegion = getFishingRegion(regionSet);
+        Optional<FishingRegion> fishingRegion = fishingRegionManager.getFishingRegion(hookLocation);
 
         if (fishingRegion.isPresent()) {
             FishingRegion currentRegion = fishingRegion.get();
             Item caughtItem = (Item) event.getCaught();
 
             FishingLootTable lootTable = currentRegion.getLootTable();
-            LootTier rewardTier = getLootItemTier();
+            LootTier rewardTier = lootManager.getRandomLootTier();
 
             if (lootTable.hasLoot(rewardTier)) {
 
@@ -87,28 +68,5 @@ public class FishingManager {
 
     }
 
-    private Optional<FishingRegion> getFishingRegion(ApplicableRegionSet regionSet) {
-        for (ProtectedRegion region : regionSet) {
-            if (fishingRegions.containsKey(region.getId())) {
-                return Optional.of(fishingRegions.get(region.getId()));
-            }
-        }
-        return Optional.empty();
-    }
-
-    public LootTier getLootItemTier() {
-        double random = new Random().nextDouble();
-        LootTier tier = LootTier.COMMON;
-
-        for(Map.Entry<LootTier, Double> entry : lootProbabilities.entrySet() ) {
-            if (random <= entry.getValue()) {
-                tier = entry.getKey();
-                break;
-            }
-        }
-
-        return tier;
-
-    }
 }
 
