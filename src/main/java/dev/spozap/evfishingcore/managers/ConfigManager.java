@@ -4,6 +4,7 @@ import com.google.common.base.Enums;
 import dev.spozap.evfishingcore.EvFishingCore;
 import dev.spozap.evfishingcore.config.ConfigurationFile;
 import dev.spozap.evfishingcore.models.*;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -37,12 +38,25 @@ public class ConfigManager {
             for(String key : fishKeys) {
 
                 ConfigurationSection fishSection = fishesSection.getConfigurationSection(key);
+                Material material = Material.STONE;
 
                 Fish fish = new Fish();
 
                 if (fishSection.contains("display-name")) {
                     fish.setName(fishSection.getString("display-name"));
                 }
+
+
+                if  (fishSection.contains("material")) {
+                    Material confMaterial = Material.matchMaterial(fishSection.getString("material"));
+
+                    if (confMaterial != null) {
+                        material = confMaterial;
+                    }
+
+                }
+
+                fish.setMaterial(material);
 
                 if (fishSection.contains("tier")) {
                     Optional<LootTier> tierConfig = Enums.getIfPresent(LootTier.class, fishSection.getString("tier")).toJavaUtil();

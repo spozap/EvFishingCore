@@ -46,7 +46,7 @@ public class FishingManager {
 
                 LootItem reward = lootTable.getLootByTier(rewardTier);
 
-                ItemStack fishItem = new ItemStack(Material.PUFFERFISH);
+                ItemStack fishItem = new ItemStack(reward.getMaterial());
                 ItemMeta itemMeta = fishItem.getItemMeta();
 
                 String name = reward.getName();
