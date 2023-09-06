@@ -2,10 +2,10 @@ package dev.spozap.evfishingcore;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
-import dev.spozap.evfishingcore.commands.CommandManager;
+import dev.spozap.evfishingcore.command.CommandManager;
 import dev.spozap.evfishingcore.data.ConfigManager;
 import dev.spozap.evfishingcore.fishing.FishingManager;
-import dev.spozap.evfishingcore.fishing.PlayerFishListener;
+import dev.spozap.evfishingcore.listener.PlayerFishListener;
 import dev.spozap.evfishingcore.loot.LootManager;
 import dev.spozap.evfishingcore.regions.FishingRegionManager;
 import org.bukkit.plugin.java.JavaPlugin;

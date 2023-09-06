@@ -1,5 +1,6 @@
-package dev.spozap.evfishingcore.fishing;
+package dev.spozap.evfishingcore.listener;
 
+import dev.spozap.evfishingcore.fishing.FishingManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;

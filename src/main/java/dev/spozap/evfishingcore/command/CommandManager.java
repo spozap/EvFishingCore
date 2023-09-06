@@ -1,8 +1,7 @@
-package dev.spozap.evfishingcore.commands;
+package dev.spozap.evfishingcore.command;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.spozap.evfishingcore.EvFishingCore;
-import dev.spozap.evfishingcore.commands.RegionsSubCmd;
 
 public class CommandManager {
 
