@@ -1,7 +1,7 @@
-package dev.spozap.evfishingcore.managers;
+package dev.spozap.evfishingcore.loot;
 
 import dev.spozap.evfishingcore.EvFishingCore;
-import dev.spozap.evfishingcore.models.LootTier;
+import dev.spozap.evfishingcore.loot.LootTier;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,10 +1,7 @@
-package dev.spozap.evfishingcore.models;
-
-import java.util.ArrayList;
-import java.util.List;
+package dev.spozap.evfishingcore.regions;
 
 public class FishingRegion {
-    private FishingLootTable lootTable;
+    private RegionLootTable lootTable;
     private String id, displayName;
 
     public FishingRegion() {
@@ -27,10 +24,10 @@ public class FishingRegion {
         this.displayName = displayName;
     }
 
-    public FishingLootTable getLootTable() {
+    public RegionLootTable getLootTable() {
         return lootTable;
     }
-    public void setLootTable(FishingLootTable lootTable) {
+    public void setLootTable(RegionLootTable lootTable) {
         this.lootTable = lootTable;
     }
 }

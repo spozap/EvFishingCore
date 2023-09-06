@@ -1,10 +1,13 @@
-package dev.spozap.evfishingcore.models;
+package dev.spozap.evfishingcore.regions;
+
+import dev.spozap.evfishingcore.loot.LootItem;
+import dev.spozap.evfishingcore.loot.LootTier;
 
 import java.util.*;
 
-public class FishingLootTable {
+public class RegionLootTable {
     private Map<LootTier, List<LootItem>> lootByTier;
-    public FishingLootTable() {
+    public RegionLootTable() {
         lootByTier = new EnumMap<>(LootTier.class);
 
         for (LootTier tier : LootTier.values()) {

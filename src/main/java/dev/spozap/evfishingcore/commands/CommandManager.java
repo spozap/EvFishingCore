@@ -1,4 +1,4 @@
-package dev.spozap.evfishingcore.managers;
+package dev.spozap.evfishingcore.commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.spozap.evfishingcore.EvFishingCore;

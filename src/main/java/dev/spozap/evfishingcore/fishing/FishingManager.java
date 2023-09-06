@@ -1,18 +1,20 @@
-package dev.spozap.evfishingcore.managers;
+package dev.spozap.evfishingcore.fishing;
 
 import dev.spozap.evfishingcore.EvFishingCore;
-import dev.spozap.evfishingcore.models.*;
+import dev.spozap.evfishingcore.loot.LootItem;
+import dev.spozap.evfishingcore.loot.LootManager;
+import dev.spozap.evfishingcore.loot.LootTier;
+import dev.spozap.evfishingcore.regions.FishingRegion;
+import dev.spozap.evfishingcore.regions.FishingRegionManager;
+import dev.spozap.evfishingcore.regions.RegionLootTable;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 public class FishingManager {
@@ -39,7 +41,7 @@ public class FishingManager {
             FishingRegion currentRegion = fishingRegion.get();
             Item caughtItem = (Item) event.getCaught();
 
-            FishingLootTable lootTable = currentRegion.getLootTable();
+            RegionLootTable lootTable = currentRegion.getLootTable();
             LootTier rewardTier = lootManager.getRandomLootTier();
 
             if (lootTable.hasLoot(rewardTier)) {

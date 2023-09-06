@@ -1,4 +1,4 @@
-package dev.spozap.evfishingcore.config;
+package dev.spozap.evfishingcore.data;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

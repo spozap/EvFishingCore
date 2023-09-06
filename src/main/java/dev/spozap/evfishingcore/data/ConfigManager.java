@@ -1,9 +1,12 @@
-package dev.spozap.evfishingcore.managers;
+package dev.spozap.evfishingcore.data;
 
 import com.google.common.base.Enums;
 import dev.spozap.evfishingcore.EvFishingCore;
-import dev.spozap.evfishingcore.config.ConfigurationFile;
-import dev.spozap.evfishingcore.models.*;
+import dev.spozap.evfishingcore.loot.Fish;
+import dev.spozap.evfishingcore.loot.LootItem;
+import dev.spozap.evfishingcore.loot.LootTier;
+import dev.spozap.evfishingcore.regions.FishingRegion;
+import dev.spozap.evfishingcore.regions.RegionLootTable;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -90,7 +93,7 @@ public class ConfigManager {
             for(String key : regionKeys) {
 
                 FishingRegion region = new FishingRegion();
-                FishingLootTable lootTable = new FishingLootTable();
+                RegionLootTable lootTable = new RegionLootTable();
                 region.setId(key);
 
                 ConfigurationSection regionSection = regionsSection.getConfigurationSection(key);

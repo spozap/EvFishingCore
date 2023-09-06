@@ -1,4 +1,4 @@
-package dev.spozap.evfishingcore.models;
+package dev.spozap.evfishingcore.loot;
 
 public enum LootTier {
 

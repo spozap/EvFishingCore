@@ -1,4 +1,4 @@
-package dev.spozap.evfishingcore.models;
+package dev.spozap.evfishingcore.loot;
 
 import org.bukkit.Material;
 

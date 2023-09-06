@@ -1,4 +1,7 @@
-package dev.spozap.evfishingcore.models;
+package dev.spozap.evfishingcore.loot;
+
+import dev.spozap.evfishingcore.loot.LootItem;
+import dev.spozap.evfishingcore.loot.LootTier;
 
 public class Fish extends LootItem {
 

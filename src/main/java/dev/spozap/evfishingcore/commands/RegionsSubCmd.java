@@ -2,11 +2,6 @@ package dev.spozap.evfishingcore.commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.StringArgument;
-import dev.spozap.evfishingcore.EvFishingCore;
-import dev.spozap.evfishingcore.managers.FishingManager;
-import dev.spozap.evfishingcore.models.FishingRegion;
-
-import java.util.Map;
 
 public class RegionsSubCmd {
 
