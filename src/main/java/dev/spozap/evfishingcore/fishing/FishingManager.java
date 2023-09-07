@@ -1,6 +1,8 @@
 package dev.spozap.evfishingcore.fishing;
 
 import dev.spozap.evfishingcore.EvFishingCore;
+import dev.spozap.evfishingcore.fishing.rod.RodHandler;
+import dev.spozap.evfishingcore.loot.Fish;
 import dev.spozap.evfishingcore.loot.LootItem;
 import dev.spozap.evfishingcore.loot.LootManager;
 import dev.spozap.evfishingcore.loot.LootTier;
@@ -22,12 +24,13 @@ public class FishingManager {
     private final EvFishingCore plugin;
     private FishingRegionManager fishingRegionManager;
     private LootManager lootManager;
+    private RodHandler rodHandler;
 
     public FishingManager(EvFishingCore plugin) {
         this.plugin = plugin;
         this.fishingRegionManager = plugin.getFishingRegionManager();
         this.lootManager = plugin.getLootManager();
-
+        this.rodHandler = new RodHandler();
     }
 
     public void onFish(PlayerFishEvent event) {
@@ -47,6 +50,13 @@ public class FishingManager {
             if (lootTable.hasLoot(rewardTier)) {
 
                 LootItem reward = lootTable.getLootByTier(rewardTier);
+
+                if (reward instanceof Fish) {
+                    ItemStack rod = p.getInventory().getItem(FishingConstants.FISHING_ROD_SLOT);
+                    ItemMeta rodMeta = rod.getItemMeta();
+                    ItemMeta updatedMeta = rodHandler.updateRodStats(rodMeta);
+                    rod.setItemMeta(updatedMeta);
+                }
 
                 ItemStack fishItem = new ItemStack(reward.getMaterial());
                 ItemMeta itemMeta = fishItem.getItemMeta();

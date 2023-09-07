@@ -6,6 +6,7 @@ import dev.spozap.evfishingcore.command.CommandManager;
 import dev.spozap.evfishingcore.data.ConfigManager;
 import dev.spozap.evfishingcore.fishing.FishingManager;
 import dev.spozap.evfishingcore.listener.PlayerFishListener;
+import dev.spozap.evfishingcore.listener.PlayerRodListener;
 import dev.spozap.evfishingcore.loot.LootManager;
 import dev.spozap.evfishingcore.regions.FishingRegionManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,6 +37,7 @@ public final class EvFishingCore extends JavaPlugin {
         loadManagers();
 
         this.getServer().getPluginManager().registerEvents(new PlayerFishListener(fishingManager), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerRodListener(), this);
 
     }
 
