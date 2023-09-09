@@ -49,6 +49,13 @@ public class ConfigManager {
                     fish.setName(fishSection.getString("display-name"));
                 }
 
+                if (fishSection.contains("max-weight")) {
+                    fish.setMaxWeight(fishSection.getDouble("max-weight"));
+                }
+
+                if (fishSection.contains("max-length")) {
+                    fish.setMaxLength(fishSection.getDouble("max-length"));
+                }
 
                 if  (fishSection.contains("material")) {
                     Material confMaterial = Material.matchMaterial(fishSection.getString("material"));

@@ -1,6 +1,7 @@
 package dev.spozap.evfishingcore.loot;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class LootItem {
 
@@ -33,4 +34,5 @@ public abstract class LootItem {
     public void setMaterial(Material material) {
         this.material = material;
     }
+    public abstract ItemStack toItemStack();
 }

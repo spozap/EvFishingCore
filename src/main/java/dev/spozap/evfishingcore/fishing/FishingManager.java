@@ -51,6 +51,8 @@ public class FishingManager {
 
                 LootItem reward = lootTable.getLootByTier(rewardTier);
 
+                System.out.println("El tier es: " + reward.getTier().getLabel());
+
                 if (reward instanceof Fish) {
                     ItemStack rod = p.getInventory().getItem(FishingConstants.FISHING_ROD_SLOT);
                     ItemMeta rodMeta = rod.getItemMeta();
@@ -58,17 +60,10 @@ public class FishingManager {
                     rod.setItemMeta(updatedMeta);
                 }
 
-                ItemStack fishItem = new ItemStack(reward.getMaterial());
-                ItemMeta itemMeta = fishItem.getItemMeta();
+                ItemStack lootItem = reward.toItemStack();
+                caughtItem.setItemStack(lootItem);
 
-                String name = reward.getName();
-                itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
-
-                fishItem.setItemMeta(itemMeta);
-                caughtItem.setItemStack(fishItem);
-
-
-                p.sendMessage("Has pescado el pez " + ChatColor.translateAlternateColorCodes('&', name + "&f")
+                p.sendMessage("Has pescado el pez " + ChatColor.translateAlternateColorCodes('&', reward.getName() + "&f")
                 + " en la región de pesca " + currentRegion.getId() + " con tier: "
                 + ChatColor.translateAlternateColorCodes('&', reward.getTier().getLabel()));
             }

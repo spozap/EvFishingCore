@@ -33,8 +33,9 @@ public class RegionLootTable {
 
         Random random = new Random();
         int randomSize = random.nextInt(items.size());
+        LootItem item = items.get(randomSize);
 
-        return items.get(randomSize);
+        return item;
     }
 
 }
